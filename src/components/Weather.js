@@ -2,10 +2,13 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 
 const Weather = (props) => {
-  const [newWeather, setNewWeather] = useState();
   const [newTemp, setNewTemp] = useState();
+  const [newMinTemp, setNewMinTemp] = useState();
+  const [newMaxTemp, setNewMaxTemp] = useState();
   const [newWind, setNewWind] = useState();
+  const [newDesc, setNewDesc] = useState();
   const [newIcon, setNewIcon] = useState();
+  const [newWeather, setNewWeather] = useState([]);
 
   useEffect(() => {
     axios
@@ -20,30 +23,35 @@ const Weather = (props) => {
       )
       .then((response) => {
         setNewIcon(response.data.weather[0].icon);
+        setNewDesc(response.data.weather[0].description);
         setNewTemp(response.data.main.temp);
+        setNewMinTemp(response.data.main.temp_min);
+        setNewMaxTemp(response.data.main.temp_max);
         setNewWind(response.data.wind.speed);
         setNewWeather(response.data);
       });
   }, [props.newLatitude, props.newLongitude, props.apiKey]);
 
   console.log("weather: ", newWeather);
-  // console.log("icon: ", newIcon);
 
-  // if (props.cityExists === false) {
-  //   return <div>No city found.</div>;
-  // } else {
-  return (
-    <div>
-      <h2>Weather in {props.newCity}</h2>
-      <p>temperature {newTemp} Celsius</p>
-      <img
-        src={"http://openweathermap.org/img/wn/" + newIcon + ".png"}
-        alt="weather-icon"
-      />
-      <p>wind {newWind} m/s</p>
-    </div>
-  );
-  // }
+  if (props.newCity === "") {
+    return <div></div>;
+  } else {
+    return (
+      <div>
+        <h1>Weather in {props.newCity} for today</h1>
+        <h2>{newDesc}</h2>
+        <img
+          src={"http://openweathermap.org/img/wn/" + newIcon + ".png"}
+          alt="weather-icon"
+        />
+        <p>Current temp: {newTemp}°C</p>
+        <p>Lowest temp: {newMinTemp}°C</p>
+        <p>Highest temp: {newMaxTemp}°C</p>
+        <p>Wind {newWind} m/s</p>
+      </div>
+    );
+  }
 };
 
 export default Weather;

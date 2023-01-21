@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Weather from "./components/Weather";
-import { City } from "country-state-city";
+import CityForm from "./components/CityForm";
 import axios from "axios";
 
 const App = () => {
@@ -8,7 +8,8 @@ const App = () => {
   const [newCity, setNewCity] = useState("");
   const [newLatitude, setNewLatitude] = useState();
   const [newLongitude, setNewLongitude] = useState();
-  // const [cityExists, setCityExists] = useState(false);
+  const [cityExists, setCityExists] = useState(false);
+  const [citiesMatch, setCitiesMatch] = useState([]);
 
   const apiKey = process.env.REACT_APP_API_KEY;
   console.log("api key:", apiKey);
@@ -27,46 +28,28 @@ const App = () => {
       });
   }, [newCity, apiKey]);
 
-  const handleFilterChange = (e) => {
-    setNewSearch(e.target.value);
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    const citiesMatch = City.getAllCities()
-      .filter((city) => {
-        return city.name.match(newSearch);
-      })
-      .map((city) => city.name);
-
-    console.log("all cities: ", citiesMatch);
-
-    // if (citiesMatch.length === 0) {
-    //   console.log("1 city exists before:", cityExists);
-    //   setCityExists(false);
-    //   console.log("1 city exists after:", cityExists);
-    // } else {
-    //   console.log("2 city exists before:", cityExists);
-    //   setCityExists(true);
-    //   console.log("2 city exists after:", cityExists);
-    // }
-
-    // if (cityExists) {
-    setNewCity(newSearch);
-    // }
-    console.log("city", newCity);
+    if (citiesMatch.length > 0) {
+      setNewCity(newSearch.charAt(0).toUpperCase() + newSearch.slice(1));
+    } else {
+      alert("City doesn't exist");
+    }
     setNewSearch("");
   };
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        enter city:{" "}
-        <input value={newSearch} onChange={handleFilterChange}></input>
-        <button type="submit">submit</button>
-      </form>
+      <CityForm
+        newSearch={newSearch}
+        setNewSearch={setNewSearch}
+        setCitiesMatch={setCitiesMatch}
+        handleSubmit={handleSubmit}
+      />
       <Weather
+        cityExists={cityExists}
         newCity={newCity}
+        setCityExists={setCityExists}
         apiKey={apiKey}
         newLatitude={newLatitude}
         newLongitude={newLongitude}
