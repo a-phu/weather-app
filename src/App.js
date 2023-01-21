@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Weather from "./components/Weather";
 import CityForm from "./components/CityForm";
-import axios from "axios";
+import weatherService from "./services/weatherService";
 
 const App = () => {
   const [newSearch, setNewSearch] = useState("");
@@ -10,22 +10,13 @@ const App = () => {
   const [newLongitude, setNewLongitude] = useState();
   const [cityExists, setCityExists] = useState(false);
   const [citiesMatch, setCitiesMatch] = useState([]);
-
   const apiKey = process.env.REACT_APP_API_KEY;
-  console.log("api key:", apiKey);
 
   useEffect(() => {
-    axios
-      .get(
-        "http://api.openweathermap.org/geo/1.0/direct?q=" +
-          newCity +
-          "&appid=" +
-          apiKey
-      )
-      .then((response) => {
-        setNewLatitude(response.data[0].lat);
-        setNewLongitude(response.data[0].lon);
-      });
+    weatherService.getCoordinates(newCity, apiKey).then((response) => {
+      setNewLatitude(response.data[0].lat);
+      setNewLongitude(response.data[0].lon);
+    });
   }, [newCity, apiKey]);
 
   const handleSubmit = (e) => {

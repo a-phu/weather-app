@@ -4,6 +4,8 @@ const CityForm = (props) => {
   const handleFilterChange = (e) => {
     props.setNewSearch(e.target.value);
 
+    //when input value changes, page rerenders to update newSearch
+    //which will then also update citiesMatch
     props.setCitiesMatch(
       City.getAllCities()
         .filter((city) => {

@@ -1,5 +1,5 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
+import weatherService from "../services/weatherService";
 
 const Weather = (props) => {
   const [newTemp, setNewTemp] = useState();
@@ -11,16 +11,8 @@ const Weather = (props) => {
   const [newWeather, setNewWeather] = useState([]);
 
   useEffect(() => {
-    axios
-      .get(
-        "https://api.openweathermap.org/data/2.5/weather?lat=" +
-          props.newLatitude +
-          "&lon=" +
-          props.newLongitude +
-          "&appid=" +
-          props.apiKey +
-          "&units=metric"
-      )
+    weatherService
+      .getWeather(props.newLatitude, props.newLongitude, props.apiKey)
       .then((response) => {
         setNewIcon(response.data.weather[0].icon);
         setNewDesc(response.data.weather[0].description);
