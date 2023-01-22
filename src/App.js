@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Weather from "./components/Weather";
 import CityForm from "./components/CityForm";
 import weatherService from "./services/weatherService";
-// import { v4 as uuid } from "uuid";
+// import Select from "react-select";
 
 const App = () => {
   const [newSearch, setNewSearch] = useState("");
@@ -101,6 +101,7 @@ const App = () => {
         setCitiesMatch={setCitiesMatch}
         handleSubmit={handleSubmit}
       />
+      {/* <Select options={citiesMatch} /> */}
       <Weather
         newCity={newCity}
         newCountry={newCountry}
