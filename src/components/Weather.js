@@ -10,6 +10,14 @@ const Weather = (props) => {
   const [newIcon, setNewIcon] = useState();
   const [newWeather, setNewWeather] = useState([]);
 
+  //have event for onchange
+  //create fn for oncahnge event for this input field
+  //wait until string length us about 3 chaacters
+  //query search & limit 20 results
+  //user can click on
+  //list elements where each one has an eventlistener
+  //search and filtewr
+
   useEffect(() => {
     weatherService
       .getWeather(props.newLatitude, props.newLongitude, props.apiKey)
@@ -31,7 +39,9 @@ const Weather = (props) => {
   } else {
     return (
       <div>
-        <h1>Weather in {props.newCity} for today</h1>
+        <h1>
+          Weather in {props.newCity}, {props.newCountry} for today
+        </h1>
         <h2>{newDesc}</h2>
         <img
           src={"http://openweathermap.org/img/wn/" + newIcon + ".png"}

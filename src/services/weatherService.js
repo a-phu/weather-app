@@ -1,9 +1,11 @@
 import axios from "axios";
 
-const getCoordinates = (newCity, apiKey) => {
+const getCoordinates = (newCity, newCountry, apiKey) => {
   const coordinatesUrl =
     "http://api.openweathermap.org/geo/1.0/direct?q=" +
     newCity +
+    "," +
+    newCountry +
     "&appid=" +
     apiKey;
 
@@ -23,7 +25,9 @@ const getWeather = (newLatitude, newLongitude, apiKey) => {
   return axios.get(weatherUrl);
 };
 
-export default {
+const weatherService = {
   getCoordinates: getCoordinates,
   getWeather: getWeather,
 };
+
+export default weatherService;
