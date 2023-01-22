@@ -8,15 +8,6 @@ const Weather = (props) => {
   const [newWind, setNewWind] = useState();
   const [newDesc, setNewDesc] = useState();
   const [newIcon, setNewIcon] = useState();
-  const [newWeather, setNewWeather] = useState([]);
-
-  //have event for onchange
-  //create fn for oncahnge event for this input field
-  //wait until string length us about 3 chaacters
-  //query search & limit 20 results
-  //user can click on
-  //list elements where each one has an eventlistener
-  //search and filtewr
 
   useEffect(() => {
     weatherService
@@ -28,11 +19,8 @@ const Weather = (props) => {
         setNewMinTemp(response.data.main.temp_min);
         setNewMaxTemp(response.data.main.temp_max);
         setNewWind(response.data.wind.speed);
-        setNewWeather(response.data);
       });
   }, [props.newLatitude, props.newLongitude, props.apiKey]);
-
-  console.log("weather: ", newWeather);
 
   if (props.newCity === "") {
     return <div></div>;
