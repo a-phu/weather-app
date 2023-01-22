@@ -3,25 +3,30 @@ import Select from "react-select";
 
 const CityForm = (props) => {
   const handleFilterChange = (e) => {
-    props.setCitiesMatch(
-      City.getAllCities()
-        .filter((city) => {
-          return (city.name.toLowerCase() + ", " + city.countryCode).includes(
-            e.toLowerCase()
-          );
-        })
-        .map((city) => [
-          {
-            name: city.name,
-            country: city.countryCode,
-            label: city.name + ", " + city.countryCode,
-          },
-        ])
-        .slice(0, 9)
-    );
+    if (e !== "") {
+      props.setCitiesMatch(
+        City.getAllCities()
+          .filter((city) => {
+            return (city.name.toLowerCase() + ", " + city.countryCode).includes(
+              e.toLowerCase()
+            );
+          })
+          .map((city) => [
+            {
+              name: city.name,
+              country: city.countryCode,
+              label: city.name + ", " + city.countryCode,
+            },
+          ])
+          .slice(0, 9)
+      );
+    } else {
+      props.setCitiesMatch([]);
+    }
+    props.setNewSearch("");
   };
 
-  const setSearchAsInput = (cityName, cityCountry) => {
+  const handleSelectCity = (cityName, cityCountry) => {
     props.setNewCity(cityName);
     props.setNewCountry(cityCountry);
   };
@@ -29,13 +34,15 @@ const CityForm = (props) => {
   return (
     <div>
       <Select
+        value={props.newSearch}
         placeholder={"enter city:"}
+        noOptionsMessage={() => null}
         getOptionValue={(city) => city.label}
         onInputChange={(e) => {
           handleFilterChange(e);
         }}
         onChange={(e) => {
-          setSearchAsInput(e.name, e.country);
+          handleSelectCity(e.name, e.country);
         }}
         options={props.citiesMatch.map((city) => city[0])}
       />

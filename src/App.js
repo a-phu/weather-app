@@ -1,25 +1,15 @@
 import { useEffect, useState } from "react";
-import { City } from "country-state-city";
 import Weather from "./components/Weather";
 import CityForm from "./components/CityForm";
 import weatherService from "./services/weatherService";
 
 const App = () => {
+  const [newSearch, setNewSearch] = useState("");
   const [newCity, setNewCity] = useState("");
   const [newCountry, setNewCountry] = useState("");
   const [newLatitude, setNewLatitude] = useState();
   const [newLongitude, setNewLongitude] = useState();
-  const [citiesMatch, setCitiesMatch] = useState(
-    City.getAllCities()
-      .map((city) => [
-        {
-          name: city.name,
-          country: city.countryCode,
-          label: city.name + ", " + city.countryCode,
-        },
-      ])
-      .slice(0, 9)
-  );
+  const [citiesMatch, setCitiesMatch] = useState([]);
   const apiKey = process.env.REACT_APP_API_KEY;
 
   useEffect(() => {
@@ -34,6 +24,8 @@ const App = () => {
   return (
     <div>
       <CityForm
+        newSearch={newSearch}
+        setNewSearch={setNewSearch}
         citiesMatch={citiesMatch}
         setNewCity={setNewCity}
         setNewCountry={setNewCountry}
