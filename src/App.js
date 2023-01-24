@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import Weather from "./components/Weather";
 import CityForm from "./components/CityForm";
+// import { Header } from "react-native-elements";
+
+import "./App.css";
 import weatherService from "./services/weatherService";
 
 const App = () => {
@@ -11,6 +14,18 @@ const App = () => {
   const [newLongitude, setNewLongitude] = useState();
   const [citiesMatch, setCitiesMatch] = useState([]);
   const apiKey = process.env.REACT_APP_API_KEY;
+  const dateOptions = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  };
+  const weekdayOptions = { weekday: "long" };
+  const todayDate =
+    new Date().toLocaleDateString("en-GB", weekdayOptions).toLowerCase() +
+    " " +
+    new Date().toLocaleDateString("en-GB", dateOptions).toLowerCase();
+
+  console.log("today's date: ", todayDate);
 
   useEffect(() => {
     weatherService
@@ -23,21 +38,37 @@ const App = () => {
 
   return (
     <div>
-      <CityForm
-        newSearch={newSearch}
-        setNewSearch={setNewSearch}
-        citiesMatch={citiesMatch}
-        setNewCity={setNewCity}
-        setNewCountry={setNewCountry}
-        setCitiesMatch={setCitiesMatch}
-      />
-      <Weather
-        newCity={newCity}
-        newCountry={newCountry}
-        apiKey={apiKey}
-        newLatitude={newLatitude}
-        newLongitude={newLongitude}
-      />
+      <div className="header">
+        <p className="header-text">DAILY WEATHER FORECAST</p>
+        <p className="header-text">{todayDate}</p>
+      </div>
+      <div className="body">
+        <CityForm
+          newSearch={newSearch}
+          setNewSearch={setNewSearch}
+          citiesMatch={citiesMatch}
+          setNewCity={setNewCity}
+          setNewCountry={setNewCountry}
+          setCitiesMatch={setCitiesMatch}
+        />
+        {/* <div className="weather-container"></div> */}
+        <Weather
+          className="weather"
+          descClassName="desc"
+          leftClassName="left-weather"
+          rightClassName="right-weather"
+          righttopClassName="right-top-weather"
+          cityClassName="city"
+          forecastClassName="weather-forecast"
+          detailsClassName="weather-details"
+          tempClassName="temp"
+          newCity={newCity}
+          newCountry={newCountry}
+          apiKey={apiKey}
+          newLatitude={newLatitude}
+          newLongitude={newLongitude}
+        />
+      </div>
     </div>
   );
 };

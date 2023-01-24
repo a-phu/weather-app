@@ -3,8 +3,10 @@ import weatherService from "../services/weatherService";
 
 const Weather = (props) => {
   const [newTemp, setNewTemp] = useState();
+  const [newFeelsLike, setNewFeelsLike] = useState();
   const [newMinTemp, setNewMinTemp] = useState();
   const [newMaxTemp, setNewMaxTemp] = useState();
+  const [newHumidity, setNewHumidity] = useState();
   const [newWind, setNewWind] = useState();
   const [newDesc, setNewDesc] = useState();
   const [newIcon, setNewIcon] = useState();
@@ -15,10 +17,12 @@ const Weather = (props) => {
       .then((response) => {
         setNewIcon(response.data.weather[0].icon);
         setNewDesc(response.data.weather[0].description);
-        setNewTemp(response.data.main.temp);
-        setNewMinTemp(response.data.main.temp_min);
-        setNewMaxTemp(response.data.main.temp_max);
-        setNewWind(response.data.wind.speed);
+        setNewTemp(Math.round(response.data.main.temp));
+        setNewFeelsLike(Math.round(response.data.main.feels_like));
+        setNewMinTemp(Math.round(response.data.main.temp_min));
+        setNewMaxTemp(Math.round(response.data.main.temp_max));
+        setNewHumidity(Math.round(response.data.main.humidity));
+        setNewWind(Math.round(response.data.wind.speed));
       });
   }, [props.newLatitude, props.newLongitude, props.apiKey]);
 
@@ -26,19 +30,60 @@ const Weather = (props) => {
     return <div></div>;
   } else {
     return (
-      <div>
-        <h1>
-          Weather in {props.newCity}, {props.newCountry} for today
-        </h1>
-        <h2>{newDesc}</h2>
-        <img
-          src={"http://openweathermap.org/img/wn/" + newIcon + ".png"}
-          alt="weather-icon"
-        />
-        <p>Current temp: {newTemp}°C</p>
-        <p>Lowest temp: {newMinTemp}°C</p>
-        <p>Highest temp: {newMaxTemp}°C</p>
-        <p>Wind {newWind} m/s</p>
+      //total weather component
+      <div className={props.className}>
+        {/*left */}
+        <div className={props.leftClassName}>
+          <img
+            src={"http://openweathermap.org/img/wn/" + newIcon + ".png"}
+            alt="weather-icon"
+          />
+          {/* <p className={props.descClassName}> */}
+          <strong className={props.descClassName}>{newDesc} </strong>
+        </div>
+        {/*right */}
+        <div className={props.rightClassName}>
+          {/* temp, city, feels like */}
+
+          <div className={props.righttopClassName}>
+            <p className={props.tempClassName}>{newTemp}°C </p>
+
+            <div className={props.cityClassName}>
+              <p className={props.borderClassName}>
+                {props.newCity}, {props.newCountry}
+              </p>
+              <p className={props.borderClassName}>
+                <strong> feels like: </strong>
+                {newFeelsLike}°C
+              </p>
+            </div>
+          </div>
+
+          {/* forecast details */}
+          <div className={props.detailsClassName}>
+            <div>
+              <p>
+                <strong>low: </strong>
+                {newMinTemp}°C
+              </p>
+              <p>
+                <strong>high: </strong>
+                {newMaxTemp}°C
+              </p>
+            </div>
+
+            <div>
+              <p>
+                <strong>humidity: </strong>
+                {newHumidity}
+              </p>
+              <p>
+                <strong>wind: </strong>
+                {newWind} m/s
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

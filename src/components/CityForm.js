@@ -20,9 +20,10 @@ const CityForm = (props) => {
           ])
           .slice(0, 9)
       );
-    } else {
-      props.setCitiesMatch([]);
     }
+    // else {
+    //   props.setCitiesMatch([]);
+    // }
     props.setNewSearch("");
   };
 
@@ -31,10 +32,55 @@ const CityForm = (props) => {
     props.setNewCountry(cityCountry);
   };
 
+  const customStyles = {
+    control: (styles) => ({
+      ...styles,
+      minWidth: "581px",
+      maxWidth: "581px",
+      borderRadius: "20px",
+      height: "64px",
+      boxShadow: "none",
+      // fontFamily: "Inter",
+      paddingLeft: "10px",
+      "&:focus-within": {
+        boxShadow: "none",
+        border: "2px solid #c7c5c5",
+      },
+      "&:hover": {
+        // backgroundColor: "#ede6f0",
+        boxShadow: "none",
+        border: "none",
+        // border: "2px solid #DEDDFF",
+      },
+    }),
+    input: (styles) => ({
+      ...styles,
+      fontFamily: "Arial, san-serif !important",
+    }),
+    option: (styles) => ({
+      ...styles,
+      maxWidth: "581px",
+      borderRadius: "10px",
+    }),
+    menu: (styles) => ({
+      ...styles,
+      borderRadius: "10px",
+      maxWidth: "581px",
+      opacity: ".7",
+      boxShadow: "none",
+      border: "none",
+    }),
+  };
+
   return (
-    <div>
+    <div className={props.className}>
       <Select
-        value={props.newSearch}
+        // value={props.newSearch}
+        components={{
+          DropdownIndicator: () => null,
+          IndicatorSeparator: () => null,
+        }}
+        styles={customStyles}
         placeholder={"enter city:"}
         noOptionsMessage={() => null}
         getOptionValue={(city) => city.label}
