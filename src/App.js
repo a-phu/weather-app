@@ -53,12 +53,14 @@ const App = () => {
         />
         {/* <div className="weather-container"></div> */}
         <Weather
+          icon="icon"
           className="weather"
           descClassName="desc"
           leftClassName="left-weather"
           rightClassName="right-weather"
           righttopClassName="right-top-weather"
           cityClassName="city"
+          textClassName="text"
           forecastClassName="weather-forecast"
           detailsClassName="weather-details"
           tempClassName="temp"

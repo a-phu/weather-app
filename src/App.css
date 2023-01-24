@@ -81,6 +81,13 @@ body {
   padding-left: 5px;
 }
 
+.text {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  /* border: 2px solid blue; */
+}
+
 .weather-details {
   display: flex;
   flex-direction: row;
@@ -95,6 +102,46 @@ body {
   font-weight: 300;
   /* background-color: orange; */
 }
+.cloud-icon {
+  font-size: 200px;
+  color: #dadff7;
+}
+.sun-icon {
+  font-size: 200px;
+  color: rgb(255, 96, 96);
+}
+.thunderstorm-icon {
+  font-size: 200px;
+  color: rgb(0, 0, 0);
+}
+.drizzle-icon {
+  font-size: 200px;
+  color: rgb(171, 210, 255);
+}
+.rain-icon {
+  font-size: 200px;
+  color: rgb(72, 146, 231);
+}
+.snow-icon {
+  font-size: 200px;
+  color: rgb(255, 255, 255);
+}
+.tornado-icon {
+  font-size: 200px;
+  color: rgb(255, 213, 139);
+}
+.smog-icon {
+  font-size: 200px;
+  color: rgb(181, 210, 233);
+}
+.volcano-icon {
+  font-size: 200px;
+  color: rgb(227, 117, 0);
+}
+.squalls-icon {
+  font-size: 200px;
+  color: rgb(191, 213, 225);
+}
 
 .desc {
   /* font-weight: 400; */
@@ -107,7 +154,7 @@ body {
 
 p {
   margin: 0;
-  padding: 0;
+  padding: 2px;
 }
 
 img {

@@ -80,6 +80,7 @@ const CityForm = (props) => {
           DropdownIndicator: () => null,
           IndicatorSeparator: () => null,
         }}
+        value={props.newSearch}
         styles={customStyles}
         placeholder={"enter city:"}
         noOptionsMessage={() => null}
