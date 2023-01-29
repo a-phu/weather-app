@@ -39,33 +39,23 @@ const Weather = (props) => {
   if (typeof props.newLatitude === "undefined") {
     return (
       <div>
-        {() => {
+        {/* {() => {
           alert("city does not exist");
-        }}
+        }} */}
       </div>
     );
   } else {
     return (
       //total weather component
       <div className={props.className}>
-        {/* <FontAwesomeIcon className={props.icon} icon={faCloudShowersHeavy} /> */}
-        {/*left */}
         <div className={props.leftClassName}>
-          {/* <img
-            src={"http://openweathermap.org/img/wn/" + newIcon + ".png"}
-            alt="weather-icon"
-          /> */}
           <Icon desc={newDesc} />
           <strong className={props.descClassName}>{newDesc} </strong>
-          {/* <p className={props.descClassName}> */}
         </div>
-        {/*right */}
-        <div className={props.rightClassName}>
-          {/* temp, city, feels like */}
 
+        <div className={props.rightClassName}>
           <div className={props.righttopClassName}>
             <p className={props.tempClassName}>{newTemp}°C </p>
-
             <div className={props.cityClassName}>
               <p className={props.borderClassName}>
                 {props.newCity}, {props.newCountry}
@@ -76,8 +66,6 @@ const Weather = (props) => {
               </p>
             </div>
           </div>
-
-          {/* forecast details */}
           <div className={props.detailsClassName}>
             <div>
               <p>
@@ -91,7 +79,6 @@ const Weather = (props) => {
                 {newMaxTemp}°C
               </p>
             </div>
-
             <div>
               <p className={props.textClassName}>
                 <FontAwesomeIcon icon={faDroplet} />
